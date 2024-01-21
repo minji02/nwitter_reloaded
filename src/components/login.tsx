@@ -1,16 +1,9 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
-import {
-  Error,
-  Input,
-  Switcher,
-  Head,
-  Form,
-  BtnWrapper,
-} from "./auth-components";
+import { Error, Input, Head, Form, BtnWrapper } from "./auth-components";
 
 export default function LoginForm() {
   const navigate = useNavigate();

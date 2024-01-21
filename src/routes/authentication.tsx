@@ -7,7 +7,6 @@ import {
   LoginBtn,
   Logo,
   BtnWrapper,
-  Head,
   HomeHead,
   Check,
 } from "../components/auth-components";

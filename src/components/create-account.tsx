@@ -3,14 +3,7 @@ import { useState } from "react";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
-import {
-  Error,
-  Input,
-  Head,
-  Wrapper,
-  Form,
-  BtnWrapper,
-} from "./auth-components";
+import { Error, Input, Head, Form, BtnWrapper } from "./auth-components";
 
 export default function CreateAccount() {
   const navigate = useNavigate();

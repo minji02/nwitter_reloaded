@@ -1,4 +1,3 @@
-import LoginForm from "./login";
 import { SetModal } from "../routes/authentication";
 import { CloseBtn, ModalWrapper } from "./modal";
 import CreateAccount from "./create-account";
