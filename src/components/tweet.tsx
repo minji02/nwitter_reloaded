@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
-  border-bottom: 1px solid #c5c5c575;
+  border-bottom: 1px solid #c5c5c565;
 `;
 
 const Column = styled.div``;

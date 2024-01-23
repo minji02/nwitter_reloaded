@@ -31,7 +31,7 @@ const TextArea = styled.textarea`
   &:focus {
     outline: none;
   }
-  border-bottom: 1px solid #c5c5c575;
+  border-bottom: 1px solid #c5c5c565;
 `;
 
 const AttachFileButton = styled.label`
@@ -48,7 +48,7 @@ const AttachFileInput = styled.input`
 `;
 
 const SubmitBtn = styled.input`
-  width: 23%;
+  width: 35%;
   height: 85%;
   font-weight: 600;
   font-size: 14px;

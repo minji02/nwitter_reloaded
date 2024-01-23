@@ -16,6 +16,9 @@ export const ModalWrapper = styled.div`
   &.login {
     height: 350px;
   }
+  &.edit_avatar {
+    height: 100px;
+  }
 `;
 
 export const CloseBtn = styled.button`

@@ -1,6 +1,8 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { auth } from "../firebase";
+import Explore from "./explore";
+import { useState } from "react";
 
 const Wrapper = styled.div`
   display: grid;
@@ -15,8 +17,8 @@ const Menu = styled.div`
   flex-direction: column;
   align-items: start;
   width: 100%;
-  border-right: 1px solid #c5c5c575;
-  gap: 10px;
+  border-right: 1px solid #c5c5c565;
+  gap: 5px;
 `;
 
 const MenuItem = styled.div`
@@ -24,10 +26,10 @@ const MenuItem = styled.div`
   display: flex;
   align-items: center;
   height: 50px;
+  padding: 10px;
   gap: 20px;
-  padding: 0 20px;
   svg {
-    width: 28px;
+    width: 26px;
     color: black;
   }
   &.log-out {
@@ -52,17 +54,53 @@ const MenuLink = styled(Link)`
 
 const MenuName = styled.div`
   font-size: 20px;
+  &.bold {
+    font-weight: 600;
+  }
 `;
+
+const User = styled.div`
+  display: flex;
+  width: 300px;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 20px;
+`;
+
+const UserPhoto = styled.img`
+  width: 16%;
+  border-radius: 50%;
+  margin-right: 15px;
+`;
+
+const UserInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  padding-bottom: 10px;
+`;
+
+const UserName = styled.span`
+  font-weight: 600;
+`;
+
+const UserEmail = styled.span``;
 
 export default function Layout() {
   const navigate = useNavigate();
+  const user = auth.currentUser;
+  const [isClick, setClick] = useState(true);
+  const [avatar] = useState(user?.photoURL);
   const onLogOut = async () => {
     const ok = confirm("Are you sure you want to log out?");
     if (ok) {
       await auth.signOut();
-      navigate("/login");
+      navigate("/authentication");
     }
   };
+  const onHomeClick = () => setClick(true);
+  const onProfileClick = () => setClick(false);
+
   return (
     <Wrapper>
       <Menu>
@@ -73,7 +111,7 @@ export default function Layout() {
             </g>
           </svg>
         </MenuItem>
-        <MenuLink to="/">
+        <MenuLink onClick={onHomeClick} to="/">
           <MenuItem>
             <svg
               stroke="currentColor"
@@ -86,7 +124,7 @@ export default function Layout() {
                 <path d="M12.97 2.59a1.5 1.5 0 0 0-1.94 0l-7.5 6.363A1.5 1.5 0 0 0 3 10.097V19.5A1.5 1.5 0 0 0 4.5 21h4.75a.75.75 0 0 0 .75-.75V14h4v6.25c0 .414.336.75.75.75h4.75a1.5 1.5 0 0 0 1.5-1.5v-9.403a1.5 1.5 0 0 0-.53-1.144l-7.5-6.363Z"></path>
               </g>
             </svg>
-            <MenuName>Home</MenuName>
+            <MenuName className={isClick ? "bold" : ""}>Home</MenuName>
           </MenuItem>
         </MenuLink>
         <MenuItem>
@@ -146,14 +184,14 @@ export default function Layout() {
           </svg>
           <MenuName>Premium</MenuName>
         </MenuItem>
-        <MenuLink to="/profile">
+        <MenuLink onClick={onProfileClick} to="/profile">
           <MenuItem>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <g>
                 <path d="M5.651 19h12.698c-.337-1.8-1.023-3.21-1.945-4.19C15.318 13.65 13.838 13 12 13s-3.317.65-4.404 1.81c-.922.98-1.608 2.39-1.945 4.19zm.486-5.56C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46zM12 4c-1.105 0-2 .9-2 2s.895 2 2 2 2-.9 2-2-.895-2-2-2zM8 6c0-2.21 1.791-4 4-4s4 1.79 4 4-1.791 4-4 4-4-1.79-4-4z"></path>
               </g>
             </svg>
-            <MenuName>Profile</MenuName>
+            <MenuName className={isClick ? "" : "bold"}>Profile</MenuName>
           </MenuItem>
         </MenuLink>
         <MenuItem>
@@ -179,8 +217,27 @@ export default function Layout() {
           </svg>
           <MenuName>Log out</MenuName>
         </MenuItem>
+        <User>
+          {avatar ? (
+            <UserPhoto src={avatar} />
+          ) : (
+            <svg
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path d="M10 8a3 3 0 100-6 3 3 0 000 6zM3.465 14.493a1.23 1.23 0 00.41 1.412A9.957 9.957 0 0010 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 00-13.074.003z" />
+            </svg>
+          )}
+          <UserInfo>
+            <UserName>{user?.displayName}</UserName>
+            <UserEmail>{user?.email}</UserEmail>
+          </UserInfo>
+        </User>
       </Menu>
       <Outlet />
+      <Explore />
     </Wrapper>
   );
 }
