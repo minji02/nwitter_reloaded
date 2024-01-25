@@ -137,7 +137,7 @@ export default function PostTweetForm() {
         id="file"
         accept="image/*"
       />
-      <SubmitBtn type="submit" value={isLoading ? "Posting..." : "Post"} />
+      <SubmitBtn type="submit" value={isLoading ? "게시중..." : "게시하기"} />
     </Form>
   );
 }

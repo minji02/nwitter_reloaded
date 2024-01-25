@@ -38,7 +38,7 @@ export const Input = styled.input`
   border: 0.5px solid #c5c5c5;
   padding: 10px 20px;
   border-radius: 50px;
-  border: none;
+  border: 1px solid #c5c5c5;
   width: 100%;
   font-size: 16px;
   &[type="submit"] {
@@ -51,6 +51,9 @@ export const Input = styled.input`
     background-color: #001a4d;
     color: white;
     font-weight: 600;
+  }
+  &:focus {
+    outline: none;
   }
 `;
 

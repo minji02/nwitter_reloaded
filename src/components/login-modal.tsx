@@ -1,4 +1,4 @@
-import LoginForm from "./login";
+import Login from "./login";
 import { SetModal } from "../routes/authentication";
 import { CloseBtn, ModalWrapper } from "./modal";
 
@@ -25,7 +25,7 @@ export default function LoginModal({ setOpenModal }: SetModal) {
           />
         </svg>
       </CloseBtn>
-      <LoginForm />
+      <Login />
     </ModalWrapper>
   );
 }

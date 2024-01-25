@@ -2,8 +2,19 @@ import styled from "styled-components";
 import { ModalWrapper, CloseBtn } from "./modal";
 import { Avatar } from "../routes/profile";
 import React, { useState } from "react";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { updateProfile } from "firebase/auth";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+  updateDoc,
+  where,
+  writeBatch,
+} from "firebase/firestore";
 
 const Form = styled.form`
   display: flex;
@@ -42,6 +53,18 @@ export default function EditAvatar({
       }
       confirm("Are you sure change your name?");
       await updateProfile(user, { displayName: editName });
+      const tweetQuery = query(
+        collection(db, "tweets"),
+        where("userId", "==", user?.uid)
+      );
+      const snapshot = await getDocs(tweetQuery);
+
+      const batch = writeBatch(db);
+
+      snapshot.forEach((doc) => {
+        batch.update(doc.ref, { username: editName });
+      });
+      await batch.commit();
     } catch (e) {
       console.log(e);
     } finally {

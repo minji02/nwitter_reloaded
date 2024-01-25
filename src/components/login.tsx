@@ -5,7 +5,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { Error, Input, Head, Form, BtnWrapper } from "./auth-components";
 
-export default function LoginForm() {
+export default function Login() {
   const navigate = useNavigate();
 
   const [isLoading, setLoading] = useState(false);
@@ -70,10 +70,6 @@ export default function LoginForm() {
         />
       </Form>
       {error !== "" ? <Error>{error}</Error> : null}
-      {/* <Switcher>
-        Don't have an account?{" "}
-        <Link to="/create-account">Create one &rarr;</Link>
-      </Switcher> */}
     </BtnWrapper>
   );
 }
