@@ -1,17 +1,13 @@
 import styled from "styled-components";
 import { ModalWrapper, CloseBtn } from "./modal";
 import { Avatar } from "../routes/profile";
-import React, { useState } from "react";
+import React from "react";
 import { auth, db } from "../firebase";
 import { updateProfile } from "firebase/auth";
 import {
   collection,
-  doc,
-  getDoc,
   getDocs,
-  orderBy,
   query,
-  updateDoc,
   where,
   writeBatch,
 } from "firebase/firestore";
